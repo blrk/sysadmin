@@ -24,5 +24,7 @@ Solve the following questions
             dns-nameservers 10.10.0.111
             dns-search OpenStackDomainName
   </pre>
-  <li>using sed command replace the ip 10.0.0.111 to 10.0.0.113 by keeping a backup file</li>
+  using sed command replace the ip 10.0.0.111 to 10.0.0.113 by keeping a backup file
+  
+  <li><li>
 </ol>
