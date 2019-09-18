@@ -23,6 +23,6 @@ Solve the following questions
             # dns-* options are implemented by the resolvconf package, if installed
             dns-nameservers 10.10.0.111
             dns-search OpenStackDomainName
-  <pre>
+  </pre>
   <li>using sed command replace the ip 10.0.0.111 to 10.0.0.113 by keeping a backup file</li>
 </ol>
