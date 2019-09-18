@@ -1,0 +1,7 @@
+Solve the following questions
+-----------------------------
+<ol type="1">
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ol>
