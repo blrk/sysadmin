@@ -37,4 +37,19 @@ Solve the following questions
   echo $INFRACLASS_PROJECT_ID
   </pre>
   What will be printed as an output of last 2 echo commands
+  <li>Consider the following commands</li>
+  <pre>
+  blrk@rk-lpc:/rkdrive/sysadmin> ip route show
+  default via 192.168.1.1 dev eth2  proto static  metric 100 
+  10.0.0.0/24 dev virbr1  proto kernel  scope link  src 10.0.0.1 
+  172.17.0.0/16 dev virbr3  proto kernel  scope link  src 172.17.0.1 
+  192.168.0.0/16 dev eth2  proto kernel  scope link  src 192.168.1.101  metric 100 
+  192.168.100.0/24 dev virbr0  proto kernel  scope link  src 192.168.100.1 
+  192.168.123.0/24 dev virbr123  proto kernel  scope link  src 192.168.123.1 
+  192.168.126.0/24 dev virbr126  proto kernel  scope link  src 192.168.126.1   
+  </pre>
+  What will be the output suppose we run the following command
+  <pre>
+  ip route show | sed -n '/src/p' | sed -e 's/  */ /g' | cut -d' ' -f9
+  </pre>
 </ol>
