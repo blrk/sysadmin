@@ -127,3 +127,116 @@ Device     Boot   Start      End Sectors Size Id Type
 /dev/vdb2       4196352 10487807 6291456   3G 83 Linux
 </pre>
 
+Command (m for help): d
+Partition number (1,2, default 2): 2
+
+Partition 2 has been deleted.
+
+Command (m for help): 
+
+Command (m for help): p
+Disk /dev/vdb: 10 GiB, 10737418240 bytes, 20971520 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xab18e436
+
+Device     Boot Start     End Sectors Size Id Type
+/dev/vdb1        2048 4196351 4194304   2G 83 Linux
+
+Command (m for help): n
+Partition type
+   p   primary (2 primary, 0 extended, 2 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (3,4, default 3): 
+First sector (8390656-20971519, default 8390656): 
+Last sector, +sectors or +size{K,M,G,T,P} (8390656-20971519, default 20971519): +1G
+
+Created a new partition 3 of type 'Linux' and of size 1 GiB.
+
+Command (m for help): p
+Disk /dev/vdb: 10 GiB, 10737418240 bytes, 20971520 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xab18e436
+
+Device     Boot   Start      End Sectors Size Id Type
+/dev/vdb1          2048  4196351 4194304   2G 83 Linux
+/dev/vdb2       4196352  8390655 4194304   2G 83 Linux
+/dev/vdb3       8390656 10487807 2097152   1G 83 Linux
+
+Command (m for help): n
+Partition type
+   p   primary (3 primary, 0 extended, 1 free)
+   e   extended (container for logical partitions)
+Select (default e): e
+
+Selected partition 4
+First sector (10487808-20971519, default 10487808): 
+Last sector, +sectors or +size{K,M,G,T,P} (10487808-20971519, default 20971519): 
+
+Created a new partition 4 of type 'Extended' and of size 5 GiB.
+
+Command (m for help): p
+Disk /dev/vdb: 10 GiB, 10737418240 bytes, 20971520 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xab18e436
+
+Device     Boot    Start      End  Sectors Size Id Type
+/dev/vdb1           2048  4196351  4194304   2G 83 Linux
+/dev/vdb2        4196352  8390655  4194304   2G 83 Linux
+/dev/vdb3        8390656 10487807  2097152   1G 83 Linux
+/dev/vdb4       10487808 20971519 10483712   5G  5 Extended
+
+Command (m for help): 
+
+Command (m for help): p
+Disk /dev/vdb: 10 GiB, 10737418240 bytes, 20971520 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xab18e436
+
+Device     Boot    Start      End  Sectors Size Id Type
+/dev/vdb1           2048  4196351  4194304   2G 83 Linux
+/dev/vdb2        4196352  8390655  4194304   2G 83 Linux
+/dev/vdb3        8390656 10487807  2097152   1G 83 Linux
+/dev/vdb4       10487808 20971519 10483712   5G  5 Extended
+
+Command (m for help): n
+All primary partitions are in use.
+Adding logical partition 5
+First sector (10489856-20971519, default 10489856): 
+Last sector, +sectors or +size{K,M,G,T,P} (10489856-20971519, default 20971519): +2G
+
+Created a new partition 5 of type 'Linux' and of size 2 GiB.
+
+Command (m for help): p
+Disk /dev/vdb: 10 GiB, 10737418240 bytes, 20971520 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xab18e436
+
+Device     Boot    Start      End  Sectors Size Id Type
+/dev/vdb1           2048  4196351  4194304   2G 83 Linux
+/dev/vdb2        4196352  8390655  4194304   2G 83 Linux
+/dev/vdb3        8390656 10487807  2097152   1G 83 Linux
+/dev/vdb4       10487808 20971519 10483712   5G  5 Extended
+/dev/vdb5       10489856 14684159  4194304   2G 83 Linux
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+
