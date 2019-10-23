@@ -207,7 +207,7 @@ Command (m for help):
 </pre>
 
 <li>create partition > logical</li>
-</pre>
+<pre>
 Command (m for help): n
 All primary partitions are in use.
 Adding logical partition 5
