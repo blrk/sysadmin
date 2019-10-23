@@ -127,6 +127,8 @@ Device     Boot   Start      End Sectors Size Id Type
 /dev/vdb2       4196352 10487807 6291456   3G 83 Linux
 </pre>
 
+<li>Deleting a partition</li>
+<pre>
 Command (m for help): d
 Partition number (1,2, default 2): 2
 
@@ -144,7 +146,10 @@ Disk identifier: 0xab18e436
 
 Device     Boot Start     End Sectors Size Id Type
 /dev/vdb1        2048 4196351 4194304   2G 83 Linux
+</pre>
 
+<li>Create partitions > primary</li>
+<pre>
 Command (m for help): n
 Partition type
    p   primary (2 primary, 0 extended, 2 free)
@@ -168,7 +173,10 @@ Device     Boot   Start      End Sectors Size Id Type
 /dev/vdb1          2048  4196351 4194304   2G 83 Linux
 /dev/vdb2       4196352  8390655 4194304   2G 83 Linux
 /dev/vdb3       8390656 10487807 2097152   1G 83 Linux
+</pre>
 
+<li>Creating partition > extended</li>
+<pre>
 Command (m for help): n
 Partition type
    p   primary (3 primary, 0 extended, 1 free)
@@ -196,21 +204,10 @@ Device     Boot    Start      End  Sectors Size Id Type
 /dev/vdb4       10487808 20971519 10483712   5G  5 Extended
 
 Command (m for help): 
+</pre>
 
-Command (m for help): p
-Disk /dev/vdb: 10 GiB, 10737418240 bytes, 20971520 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: dos
-Disk identifier: 0xab18e436
-
-Device     Boot    Start      End  Sectors Size Id Type
-/dev/vdb1           2048  4196351  4194304   2G 83 Linux
-/dev/vdb2        4196352  8390655  4194304   2G 83 Linux
-/dev/vdb3        8390656 10487807  2097152   1G 83 Linux
-/dev/vdb4       10487808 20971519 10483712   5G  5 Extended
-
+<li>create partition > logical</li>
+</pre>
 Command (m for help): n
 All primary partitions are in use.
 Adding logical partition 5
@@ -233,10 +230,171 @@ Device     Boot    Start      End  Sectors Size Id Type
 /dev/vdb3        8390656 10487807  2097152   1G 83 Linux
 /dev/vdb4       10487808 20971519 10483712   5G  5 Extended
 /dev/vdb5       10489856 14684159  4194304   2G 83 Linux
+</pre>
 
+<li>Save all the new partition </li>
+<pre>
 Command (m for help): w
 The partition table has been altered.
 Calling ioctl() to re-read partition table.
 Syncing disks.
+</pre>
 
+<li>View the partitons created </li>
+<pre>
+linux-jbz9:~ # lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sr0     11:0    1   4G  0 rom  
+vda    253:0    0  16G  0 disk 
+├─vda1 253:1    0   2G  0 part [SWAP]
+└─vda2 253:2    0  14G  0 part /
+vdb    253:16   0  10G  0 disk 
+├─vdb1 253:17   0   2G  0 part 
+├─vdb2 253:18   0   2G  0 part 
+├─vdb3 253:19   0   1G  0 part 
+├─vdb4 253:20   0   1K  0 part 
+└─vdb5 253:21   0   2G  0 part 
+</pre>
 
+<li>Creating file system > ext4</li>
+<pre>
+linux-jbz9:~ # mkfs.ext4 /dev/vdb1 
+mke2fs 1.43.8 (1-Jan-2018)
+/dev/vdb1 contains a ext3 file system
+	last mounted on Wed Oct 23 06:36:39 2019
+Proceed anyway? (y,N) y
+Creating filesystem with 524288 4k blocks and 131072 inodes
+Filesystem UUID: 495a699d-51e6-46dd-a59c-e5f8af2d5107
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+</pre>
+
+<li>Creating file system > btrfs </li>
+<li>Note : use option -f if any file system already exists in the partition</li>
+<pre>
+linux-jbz9:~ # mkfs.btrfs -f /dev/vdb2 
+btrfs-progs v4.5.3+20160729
+See http://btrfs.wiki.kernel.org for more information.
+
+Label:              (null)
+UUID:               327ed6df-14f1-40ec-b16a-4a26ab4e8b56
+Node size:          16384
+Sector size:        4096
+Filesystem size:    2.00GiB
+Block group profiles:
+  Data:             single            8.00MiB
+  Metadata:         DUP             110.38MiB
+  System:           DUP              12.00MiB
+SSD detected:       no
+Incompat features:  extref, skinny-metadata
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1     2.00GiB  /dev/vdb2
+</pre>
+
+<li>Create mount directory</li>
+<pre>
+mkdir /database /backup
+</pre>
+
+<li>Temporary mount, create a file in the partition then umount </li>
+<pre>
+linux-jbz9:~ # mount -t ext4 /dev/vdb1  /database/
+linux-jbz9:~ # mount -t btrfs /dev/vdb2 /backup/
+linux-jbz9:~ # lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sr0     11:0    1   4G  0 rom  
+vda    253:0    0  16G  0 disk 
+├─vda1 253:1    0   2G  0 part [SWAP]
+└─vda2 253:2    0  14G  0 part /
+vdb    253:16   0  10G  0 disk 
+├─vdb1 253:17   0   2G  0 part /database
+├─vdb2 253:18   0   2G  0 part /backup
+├─vdb3 253:19   0   1G  0 part 
+├─vdb4 253:20   0   1K  0 part 
+└─vdb5 253:21   0   2G  0 part 
+linux-jbz9:~ # cd /database/
+linux-jbz9:/database # ls
+lost+found
+linux-jbz9:/database # touch file1
+linux-jbz9:/database # ls
+file1  lost+found
+linux-jbz9:/database # cd ../backup/
+linux-jbz9:/backup # ls
+linux-jbz9:/backup # touch file2
+linux-jbz9:/backup # ls
+file2
+linux-jbz9:/backup # cd ..
+linux-jbz9:/ # umount /dev/vdb1
+linux-jbz9:/ # umount /backup 
+linux-jbz9:/ # lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sr0     11:0    1   4G  0 rom  
+vda    253:0    0  16G  0 disk 
+├─vda1 253:1    0   2G  0 part [SWAP]
+└─vda2 253:2    0  14G  0 part /
+vdb    253:16   0  10G  0 disk 
+├─vdb1 253:17   0   2G  0 part 
+├─vdb2 253:18   0   2G  0 part 
+├─vdb3 253:19   0   1G  0 part 
+├─vdb4 253:20   0   1K  0 part 
+└─vdb5 253:21   0   2G  0 part 
+</pre>
+
+<li>Create an entry in the fstab (mount using device name)</li>
+<pre>
+linux-jbz9:/ # vi /etc/fstab 
+#add the following line at the bottom of the fstab file and save it</li>
+/dev/vdb1       /backup ext3    defaults        1 2
+linux-jbz9:/ # mount -a
+linux-jbz9:/ # lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sr0     11:0    1   4G  0 rom  
+vda    253:0    0  16G  0 disk 
+├─vda1 253:1    0   2G  0 part [SWAP]
+└─vda2 253:2    0  14G  0 part /
+vdb    253:16   0  10G  0 disk 
+├─vdb1 253:17   0   2G  0 part /backup
+├─vdb2 253:18   0   2G  0 part 
+├─vdb3 253:19   0   1G  0 part 
+├─vdb4 253:20   0   1K  0 part 
+└─vdb5 253:21   0   2G  0 part 
+</pre>
+
+<li>Create an entry in the fstab (mount using UUID)</li>
+<li>get the UUID</li>
+<pre>
+linux-jbz9:/ # blkid /dev/vdb2 
+/dev/vdb2: UUID="327ed6df-14f1-40ec-b16a-4a26ab4e8b56" UUID_SUB="b4848399-3d70-4171-930c-cf39e07a6ad8" TYPE="btrfs" PARTUUID="ab18e436-02"
+#copy the UUID and use instead of device name
+</pre>
+
+<pre>
+linux-jbz9:/ # vi /etc/fstab 
+#add the following line at the bottom of the fstab file and save it</li>
+UUID=327ed6df-14f1-40ec-b16a-4a26ab4e8b56	/database	btrfs	defaults	1 2
+linux-jbz9:/ # mount -a
+linux-jbz9:/ # lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sr0     11:0    1   4G  0 rom  
+vda    253:0    0  16G  0 disk 
+├─vda1 253:1    0   2G  0 part [SWAP]
+└─vda2 253:2    0  14G  0 part /
+vdb    253:16   0  10G  0 disk 
+├─vdb1 253:17   0   2G  0 part /backup
+├─vdb2 253:18   0   2G  0 part /database
+├─vdb3 253:19   0   1G  0 part 
+├─vdb4 253:20   0   1K  0 part 
+└─vdb5 253:21   0   2G  0 part 
+
+linux-jbz9:/ # ls /database/
+file2
+linux-jbz9:/ # ls /backup/
+file1  lost+found
+</pre>
