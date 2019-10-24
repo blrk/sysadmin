@@ -6,7 +6,6 @@ Managing Packages using RPM
 Repository priorities in effect:                                                                       (See 'zypper lr -P' for details)
       90 (raised priority)  :  1 repository  
       99 (default priority) :  9 repositories
-
 #  | Alias                               | Name                                   | Enabled | GPG Check | Refresh
 ---+-------------------------------------+----------------------------------------+---------+-----------+--------
  1 | google-chrome                       | google-chrome                          | Yes     | (r ) Yes  | Yes    
