@@ -1,6 +1,6 @@
 Managing Packages using RPM
 -----------------------------------
-<li>List all the repositary<li>
+<li>List all the repositary</li>
 <pre>
  rk-lpc:~ # zypper lr 
 Repository priorities in effect:                                                                       (See 'zypper lr -P' for details)
