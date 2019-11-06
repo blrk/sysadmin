@@ -21,3 +21,31 @@ robert:x:502:502::/home/robert:/bin/bash
 </pre>
 <li> Note: robert has been assigned a UID of 502, and group ID of User Private Group, equals to UID </li>
 
+Create user with a default home directory 
+----------------------------------------------
+<pre>
+linux-jbz9:~ # useradd -c "Administrator" -m kevin
+linux-jbz9:~ # ls /home/
+blrk  kevin
+linux-jbz9:~ # cat /etc/passwd | grep kevin
+kevin:x:1002:100:Administrator:/home/kevin:/bin/bash
+</pre>
+<li>Note: Look at the above example user's home directory create because of option -m</li>
+
+create a user with home directory in a non default location
+-----------------------------------------------------------
+<pre>
+linux-jbz9:~ # mkdir /admins
+linux-jbz9:~ # ls /admins/
+linux-jbz9:~ # useradd -d /admins/belvin -c "DB administrator" -m belvin
+linux-jbz9:~ # ls /admins/
+belvin
+linux-jbz9:~ # cat /etc/passwd | grep belvin
+belvin:x:1003:100:DB administrator:/admins/belvin:/bin/bash
+</pre>
+
+Creating Groups
+--------------------
+
+
+
