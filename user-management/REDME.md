@@ -46,6 +46,34 @@ belvin:x:1003:100:DB administrator:/admins/belvin:/bin/bash
 
 Creating Groups
 --------------------
+<pre>
+linux-jbz9:~ # groupadd webadmin
+linux-jbz9:~ # cat /etc/group | grep webadmin
+webadmin:x:1001:
+</pre>
+<li>Create user alternate default group </li>
+<pre>
+linux-jbz9:~ # useradd -m -d /admins/joe -c "Website admin" -g webadmin joe
+linux-jbz9:~ # cat /etc/passwd | grep joe
+joe:x:1004:1001:Website admin:/admins/joe:/bin/bash
+linux-jbz9:~ # ls /admins/
+belvin  joe
+</pre>
+
+Modify the existing users
+-----------------------------
+<li>adding a secondary group to a existing user</li>
+<pre>
+linux-jbz9:~ # groupadd storageadmin
+linux-jbz9:~ # cat /etc/group | grep storage
+storageadmin:x:1002:
+linux-jbz9:~ # usermod -G storageadmin joe 
+linux-jbz9:~ # id joe
+uid=1004(joe) gid=1001(webadmin) groups=1002(storageadmin),1001(webadmin)
+linux-jbz9:~ # cat /etc/group | grep storage
+storageadmin:x:1002:joe
+</pre>
+
 
 
 
