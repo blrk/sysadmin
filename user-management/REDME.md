@@ -140,6 +140,16 @@ userdel: user kevin is currently used by process 2009
 linux-jbz9:~ # userdel -r -f  kevin
 userdel: user kevin is currently used by process 2009
 no crontab for kevin
+linux-jbz9:~ # ls /home/
+blrk
+linux-jbz9:~ # ls /admins/
+belvin  joe
+</pre>
+
+delete an user group
+------------------------
+<pre>
+linux-jbz9:~ # groupdel storageadmin
 </pre>
 
 
