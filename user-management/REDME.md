@@ -74,6 +74,40 @@ linux-jbz9:~ # cat /etc/group | grep storage
 storageadmin:x:1002:joe
 </pre>
 
+setting password for a user
+-----------------------------
+<li>Note: We have not set password to any of the created users</li>
+<li>try to login as user joe</li>
+<li>exit from the super user mode using the command exit </li>
+<pre>
+blrk@linux-jbz9:~> su - joe
+Password: 
+su: Authentication failure
+</pre>
+
+<li>Login as super user su - </li>
+<pre>
+linux-jbz9:~ # passwd joe
+New password: 
+BAD PASSWORD: it is too short
+BAD PASSWORD: is too simple
+Retype new password: 
+passwd: password updated successfully
+</pre>
+<li>Note: setting less secure password gives a warning</li>
+<li>exit from the super user mode and login as joe</li>
+<pre>
+linux-jbz9:~ # exit
+logout
+blrk@linux-jbz9:~> su - joe
+Password: 
+joe@linux-jbz9:~> pwd
+/admins/joe
+joe@linux-jbz9:~> 
+</pre>
+<li>Note: See the previous output the home directory of the user has changed </li>
+
+
 
 
 
