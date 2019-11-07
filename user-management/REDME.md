@@ -105,8 +105,42 @@ joe@linux-jbz9:~> pwd
 /admins/joe
 joe@linux-jbz9:~> 
 </pre>
-<li>Note: See the previous output the home directory of the user has changed </li>
+<li>Note: See the previous output the home directory of the user is the not the default one </li>
+<li>login as kevin </li>
+<pre>
+linux-jbz9:~ # passwd kevin
+New password: 
+BAD PASSWORD: it is too short
+BAD PASSWORD: is too simple
+Retype new password: 
+passwd: password updated successfully
+linux-jbz9:~ # exit
+logout
+joe@linux-jbz9:~> su - kevin
+Password: 
+kevin@linux-jbz9:~> pwd
+/home/kevin
+kevin@linux-jbz9:~> 
+</pre>
+<li>Note: the home directory of the user kevin is the default </li>
 
+Delete a user
+--------------------
+<li>delete the user belvin and kevin using different options</li>
+<pre>
+linux-jbz9:~ # ls /home/
+blrk  kevin
+linux-jbz9:~ # ls /admins/
+belvin  joe
+linux-jbz9:~ # userdel belvin 
+no crontab for belvin
+linux-jbz9:~ # man userdel 
+linux-jbz9:~ # userdel -r kevin
+userdel: user kevin is currently used by process 2009
+linux-jbz9:~ # userdel -r -f  kevin
+userdel: user kevin is currently used by process 2009
+no crontab for kevin
+</pre>
 
 
 
